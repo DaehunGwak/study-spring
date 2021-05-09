@@ -1,4 +1,4 @@
-package hellojpa;
+package daehun.jpa.hello;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

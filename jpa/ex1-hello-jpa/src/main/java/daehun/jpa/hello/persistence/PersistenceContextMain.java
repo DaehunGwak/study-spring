@@ -1,29 +1,41 @@
-package hellojpa;
+package daehun.jpa.hello.persistence;
+
+import daehun.jpa.hello.Member;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public class JpaCreateMain {
+public class PersistenceContextMain {
 
     public static void main(String[] args) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        // jpa는 트랜잭션을 지정해주지 않으면 실행되지 않음
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        // spring 에서 해당 관리를 해주게 되서 try 를 쓰지 않아도 되긴하지만
-        // 지금은 학습용
         try {
+            // 비영속 (new/trasient)
             Member member = new Member();
-            member.setId(3L);
-            member.setName("hello C!C");
+            member.setId(5L);
+            member.setName("diffff name");
 
+            // 영속 (managed)
+            System.out.println("==== BEFORE ====");
             entityManager.persist(member);
+            System.out.println("==== AFTER ====");
 
+            // 준영속 (detached)
+            // 이렇게 되면 준영속 상태라 저장이 안됨 (쿼리가 전송되지 않음)
+            entityManager.detach(member);
+
+            // 삭제 (removed)
+            // 준영속은 쿼리가 안날라가지만, 삭제는 쿼리가 날라감
+            entityManager.remove(member);
+
+            // 쿼리 발생 시점
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
