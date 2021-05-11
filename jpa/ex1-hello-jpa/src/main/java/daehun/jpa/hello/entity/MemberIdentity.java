@@ -1,19 +1,21 @@
-package daehun.jpa.hello;
+package daehun.jpa.hello.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity  // jpa 를 사용하는 친구구나를 알리는 어노테이션
-//@Table(name = "USER")  // 테이블 이름이 다를 경우
-public class Member {
+@Entity
+public class MemberIdentity {
 
-    @Id  // primary key는 알려야함
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column(name = "username")  // 필드 이름이 다를 경우
     private String name;
+
+    public MemberIdentity() {
+    }
 
     public Long getId() {
         return id;

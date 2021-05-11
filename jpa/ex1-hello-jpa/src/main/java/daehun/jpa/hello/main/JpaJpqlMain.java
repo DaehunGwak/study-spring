@@ -1,4 +1,6 @@
-package daehun.jpa.hello;
+package daehun.jpa.hello.main;
+
+import daehun.jpa.hello.entity.Member;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

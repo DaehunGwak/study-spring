@@ -1,13 +1,13 @@
-package daehun.jpa.hello.persistence;
+package daehun.jpa.hello.main;
 
-import daehun.jpa.hello.Member;
+import daehun.jpa.hello.entity.Member;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public class PersistenceContextMain04 {
+public class JpaReadMain {
 
     public static void main(String[] args) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
@@ -17,10 +17,9 @@ public class PersistenceContextMain04 {
         transaction.begin();
 
         try {
-            // 찾아온 데이터에 대한 변경
-            Member findMember = entityManager.find(Member.class, 101L);
-            findMember.setName("Edited Name");
-            System.out.println("=================");
+            Member findMember = entityManager.find(Member.class, 1L);
+            System.out.println("findMember.id = " + findMember.getId());
+            System.out.println("findMember.id = " + findMember.getName());
 
             transaction.commit();
         } catch (Exception e) {
