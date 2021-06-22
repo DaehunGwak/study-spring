@@ -1,4 +1,4 @@
-package jpabook.jpashop.controller;
+package jpabook.jpashop;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +9,7 @@ public class HelloController {
 
     @GetMapping("hello")
     public String hello(Model model) {
-        model.addAttribute("data", "hello!!!");
-        return "hello";
+        model.addAttribute("data", "hello!@#!@#");
+        return "hello"; // templates 에 있는 html 이름
     }
-
 }
