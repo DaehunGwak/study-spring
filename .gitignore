@@ -13,6 +13,12 @@
 # Package Files #
 *.jar
 *.war
+
+# IDE #
+.vscode
+.idea
+*.iml
+
 *.nar
 *.ear
 *.zip
