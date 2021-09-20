@@ -1,0 +1,6 @@
+spring:
+  batch:
+    job:
+      names: ${job.name:NONE}
+    jdbc:
+      initialize-schema: # real 환경에선 never 권장
