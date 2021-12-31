@@ -3,11 +3,10 @@ package com.ordi.jpabook.jpashop.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "MEMBER")
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "MEMBER_ID")
+    @Column(name = "member_id")
     private Long id;
 
     @Column(length = 10)

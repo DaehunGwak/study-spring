@@ -8,10 +8,8 @@ import java.time.LocalDateTime;
 public class Order {
 
     @Id @GeneratedValue
-    @Column(name = "ORDER_ID")
+    @Column(name = "order_id")
     private Long id;
-
-    @Column(name = "MEMBER_ID")
     private Long memberId; // 관계형 DB를 객체에 맞춘 설계
 
 //    private Member member;
