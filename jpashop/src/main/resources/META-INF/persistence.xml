@@ -15,7 +15,7 @@
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
             <property name="hibernate.jdbc.batch_size" value="100"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
 
             <property name="hibernate.physical_naming_strategy" value="com.ordi.jpabook.jpashop.config.CustomPhysicalNamingStrategy"/>
         </properties>
