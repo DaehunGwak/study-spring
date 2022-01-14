@@ -18,7 +18,7 @@ public class Category {
     private Category parent;
 
     @OneToMany(mappedBy = "parent")
-    private List<Category> childs = new ArrayList<>();
+    private List<Category> child = new ArrayList<>();
 
     // N:M 은 권장하지 않는 방식
     @ManyToMany
