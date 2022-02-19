@@ -14,4 +14,10 @@ public class Book extends Item {
 
     private String author;
     private String isbn;
+
+    public void update(String name, int price, int stockQuantity, String author, String isbn) {
+        this.update(name, price, stockQuantity);
+        this.author = author;
+        this.isbn = isbn;
+    }
 }

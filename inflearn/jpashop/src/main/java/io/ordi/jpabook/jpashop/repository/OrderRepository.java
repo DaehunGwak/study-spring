@@ -29,7 +29,7 @@ public class OrderRepository {
 
 //    public List<Order> findAllByCriteria()
 
-    public List<Order> findAll(OrderSearch orderSearch) {
-
-    }
+//    public List<Order> findAll(OrderSearch orderSearch) {
+//        // querydsl
+//    }
 }
