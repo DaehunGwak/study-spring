@@ -25,4 +25,6 @@ public class Delivery {
 
     @Enumerated(EnumType.STRING) // ORDINAL 로 장애가 날 수 있으니 주의
     private DeliveryStatus status;
+
+
 }
