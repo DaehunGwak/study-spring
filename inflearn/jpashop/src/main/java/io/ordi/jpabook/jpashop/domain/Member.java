@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Getter
 @Setter
 @Entity
@@ -25,7 +27,7 @@ public class Member {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "member") // 연관관계 주인이 아님을 설정, Order의 대상 필드 변수 이름
+    @OneToMany(mappedBy = "member", fetch = LAZY) // 연관관계 주인이 아님을 설정, Order의 대상 필드 변수 이름
     private List<Order> orders = new ArrayList<>();
 
     /*
