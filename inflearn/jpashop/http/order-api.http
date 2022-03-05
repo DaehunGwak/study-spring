@@ -1,3 +1,7 @@
 ### orders v1
 GET http://localhost:8080/api/v1/orders
 Accept: application/json
+
+### orders v2
+GET http://localhost:8080/api/v2/orders
+Accept: application/json
