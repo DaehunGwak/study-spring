@@ -1,5 +1,6 @@
 package io.ordi.jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
@@ -27,6 +28,7 @@ public class Member {
     @Embedded
     private Address address;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member", fetch = LAZY) // 연관관계 주인이 아님을 설정, Order의 대상 필드 변수 이름
     private List<Order> orders = new ArrayList<>();
 
