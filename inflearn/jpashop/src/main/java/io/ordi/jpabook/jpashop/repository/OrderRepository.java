@@ -68,4 +68,16 @@ public class OrderRepository {
                         " left join fetch o.delivery d", Order.class)
                 .getResultList();
     }
+
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                "select distinct o from Order o" +
+                        " left outer join fetch o.member m" +
+                        " left outer join fetch o.delivery d" +
+                        " left outer join fetch o.orderItems oi" +
+                        " left outer join fetch oi.item i", Order.class)
+                .setFirstResult(1) // 메ㅁ
+                .setMaxResults(100)
+                .getResultList();
+    }
 }
