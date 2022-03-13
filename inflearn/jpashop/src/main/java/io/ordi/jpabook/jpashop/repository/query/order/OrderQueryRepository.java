@@ -63,4 +63,16 @@ public class OrderQueryRepository {
         return orderItems.stream()
                 .collect(Collectors.groupingBy(OrderItemQueryDto::getOrderId));
     }
+
+    public List<OrderFlatDto> findAllFlatByDto() {
+        return em.createQuery(
+                "select new io.ordi.jpabook.jpashop.repository.query.order.OrderFlatDto(" +
+                        "       o.id, m.name, o.orderDate, o.status, d.address, i.name, oi.orderPrice, oi.count)" +
+                        " from Order o" +
+                        " join o.member m" +
+                        " join o.delivery d" +
+                        " join o.orderItems oi" +
+                        " join oi.item i", OrderFlatDto.class)
+                .getResultList();
+    }
 }
