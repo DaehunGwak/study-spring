@@ -13,3 +13,7 @@ Accept: application/json
 ### orders v3.1
 GET http://localhost:8080/api/v3.1/orders?offset=0&limit=10
 Accept: application/json
+
+### orders v4
+GET http://localhost:8080/api/v4/orders?offset=0&limit=10
+Accept: application/json

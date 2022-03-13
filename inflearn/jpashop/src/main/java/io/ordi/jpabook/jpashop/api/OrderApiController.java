@@ -6,9 +6,12 @@ import io.ordi.jpabook.jpashop.domain.OrderItem;
 import io.ordi.jpabook.jpashop.domain.OrderStatus;
 import io.ordi.jpabook.jpashop.repository.OrderRepository;
 import io.ordi.jpabook.jpashop.repository.OrderSearch;
+import io.ordi.jpabook.jpashop.repository.query.order.OrderQueryDto;
+import io.ordi.jpabook.jpashop.repository.query.order.OrderQueryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,12 +21,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@RequestMapping("/api")
 @RestController
 public class OrderApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderQueryRepository orderQueryRepository;
 
-    @GetMapping("/api/v1/orders")
+    @GetMapping("/v1/orders")
     public List<Order> ordersV1() {
         List<Order> all = orderRepository.findAll(new OrderSearch());
         for (Order order : all) {
@@ -35,7 +40,7 @@ public class OrderApiController {
         return all;
     }
 
-    @GetMapping("/api/v2/orders")
+    @GetMapping("/v2/orders")
     public List<OrderDto> ordersV2() {
         List<Order> all = orderRepository.findAll(new OrderSearch());
         return all.stream()
@@ -43,7 +48,7 @@ public class OrderApiController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/api/v3/orders")
+    @GetMapping("/v3/orders")
     public List<OrderDto> ordersV3() {
         List<Order> all = orderRepository.findAllWithItem();
         return all.stream()
@@ -51,13 +56,18 @@ public class OrderApiController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/api/v3.1/orders")
+    @GetMapping("/v3.1/orders")
     public List<OrderDto> ordersV3Page(@RequestParam(value = "offset", defaultValue = "0") int offset,
                                        @RequestParam(value = "limit", defaultValue = "100") int limit) {
         List<Order> all = orderRepository.findAllWithMemberDelivery(offset, limit);
         return all.stream()
                 .map(OrderDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/v4/orders")
+    public List<OrderQueryDto> ordersV4() {
+        return orderQueryRepository.findOrderQueryDto();
     }
 
     @Value
