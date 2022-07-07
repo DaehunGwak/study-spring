@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-@Commit
+//@Commit
 class HelloTest {
 
     @Autowired
