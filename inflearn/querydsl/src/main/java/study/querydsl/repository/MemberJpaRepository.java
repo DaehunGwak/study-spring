@@ -1,6 +1,7 @@
 package study.querydsl.repository;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -103,5 +104,45 @@ public class MemberJpaRepository {
                 .leftJoin(qMember.team, qTeam)
                 .where(builder)
                 .fetch();
+    }
+
+    /**
+     * 동적 쿼리와 성능 최적화 조회 - Where절 파라미터 사용
+     */
+    public List<MemberTeamDto> search(MemberSearchCondition condition) {
+        return queryFactory
+                .select(
+                        new QMemberTeamDto(
+                                qMember.id.as("memberId"),
+                                qMember.username,
+                                qMember.age,
+                                qTeam.id.as("teamId"),
+                                qTeam.name.as("teamName")
+                ))
+                .from(qMember)
+                .leftJoin(qMember.team, qTeam)
+                .where(
+                        getMemberUsernameEqExpression(condition.getUsername()),
+                        getTeamNameEqExpression(condition.getTeamName()),
+                        getMemberAgeGoeExpression(condition.getAgeGoe()),
+                        getMemberAgeLoeExpression(condition.getAgeLoe())
+                )
+                .fetch();
+    }
+
+    private BooleanExpression getMemberUsernameEqExpression(String username) {
+        return StringUtils.hasText(username) ? qMember.username.eq(username) : null;
+    }
+
+    private BooleanExpression getTeamNameEqExpression(String teamName) {
+        return StringUtils.hasText(teamName) ? qTeam.name.eq(teamName) : null;
+    }
+
+    private BooleanExpression getMemberAgeGoeExpression(Integer ageGoe) {
+        return Objects.isNull(ageGoe) ? null : qMember.age.goe(ageGoe);
+    }
+
+    private BooleanExpression getMemberAgeLoeExpression(Integer ageLoe) {
+        return Objects.isNull(ageLoe) ? null : qMember.age.loe(ageLoe);
     }
 }

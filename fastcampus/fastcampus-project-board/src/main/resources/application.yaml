@@ -3,14 +3,14 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*" # actuator ?? ?? ??
+        include: "*" # actuator ?? ?? ?? TODO
 
 
 logging:
     level:
       com.fastcampus.projectboard: debug
-      org.springframework.web.servlet: debug # request response ???
-      org.hibernate.type.descriptor.sql.BasicBinder: trace # ???? ??, ? ??? ??? ??? ? ? ??
+      org.springframework.web.servlet: debug # request response ??? TODO
+      org.hibernate.type.descriptor.sql.BasicBinder: trace # ???? ??, ? ??? ??? ??? ? ? ?? TODO
 
 spring:
   datasource:
@@ -19,7 +19,7 @@ spring:
     password: abcd1234!@#$
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    defer-datasource-initialization: true # data.sql ??? ??? ??? ??? ??
+    defer-datasource-initialization: true # data.sql ??? ??? ??? ??? ?? TODO
     hibernate:
       ddl-auto: create
 #    open-in-view: false
@@ -33,7 +33,7 @@ spring:
       enabled: true
   sql:
     init:
-      mode: always # data.sql ?? ?????
+      mode: always # data.sql ?? ????? TODO
 
 ---
 
@@ -41,10 +41,12 @@ spring:
   config:
     activate:
       on-profile: testdb
-#  datasource:
-#    url: jdbc:h2:mem:board;mode=mysql
-#    driver-class-name: org.h2.Driver
-#  sql:
-#    init:
-#      mode: always
-#  test.database.replace: none
+  datasource:
+    url: jdbc:h2:mem:board;mode=mysql
+    driver-class-name: org.h2.Driver
+  sql:
+    init:
+      mode: always
+  test:
+    database:
+      replace: none # 전역설정, @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) 대신

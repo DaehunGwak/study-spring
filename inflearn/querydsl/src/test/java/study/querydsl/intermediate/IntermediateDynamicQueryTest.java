@@ -71,7 +71,7 @@ public class IntermediateDynamicQueryTest extends IntermediateTestCore {
     }
 
     private BooleanExpression usernameEq(String usernameParam) {
-        return StringUtils.hasText(usernameParam) ? null : qMember.username.eq(usernameParam);
+        return StringUtils.hasText(usernameParam) ? qMember.username.eq(usernameParam) : null;
     }
 
     private BooleanExpression ageEq(Integer ageParam) {

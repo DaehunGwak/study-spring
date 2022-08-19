@@ -3,14 +3,18 @@ package com.fastcampus.projectboard.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.BatchSize;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @ToString
@@ -20,6 +24,7 @@ import java.util.Objects;
         @Index(columnList = "createdAt", name = "idx_article_created_at"),
         @Index(columnList = "createdBy", name = "idx_article_created_by")
 })
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class Article {
 
@@ -27,16 +32,35 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter @Column(nullable = false) private String title;
-    @Setter @Column(nullable = false, length = 10000) private String content;
+    @Setter
+    @Column(nullable = false)
+    private String title;
+    @Setter
+    @Column(nullable = false, length = 10000)
+    private String content;
 
-    @Setter private String hashtag;
+    @Setter
+    private String hashtag;
 
-    @CreatedDate @Column(nullable = false) private LocalDateTime createdAt;
-    @CreatedBy @Column(nullable = false, length = 100) private String createdBy;
-    @LastModifiedDate @Column(nullable = false) private LocalDateTime modifiedAt;
-    @LastModifiedBy @Column(nullable = false, length = 100) private String modifiedBy;
+    @OrderBy("id")
+//    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL) // foreign key cascade 는 공부 목적, 팀바팀 사바사
+//    @OneToMany(mappedBy = "article", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
+    @CreatedDate
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+    @CreatedBy
+    @Column(nullable = false, length = 100)
+    private String createdBy;
+    @LastModifiedDate
+    @Column(nullable = false)
+    private LocalDateTime modifiedAt;
+    @LastModifiedBy
+    @Column(nullable = false, length = 100)
+    private String modifiedBy;
     protected Article() {}
 
     private Article(String title, String content, String hashtag) {
