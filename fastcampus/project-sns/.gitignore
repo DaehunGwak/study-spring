@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### frontend node
+front-end/node_modules
+front-end/static
